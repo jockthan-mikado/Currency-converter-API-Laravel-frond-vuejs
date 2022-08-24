@@ -15,7 +15,7 @@ class PairController extends Controller
      */
     public function index()
     {
-        $pair = Pair::all();
+        $pair = Pair::with('currencyFrom','currencyTo')->get();
         return response()->json([
             'status' => true,
             'currencies'=> $pair,
