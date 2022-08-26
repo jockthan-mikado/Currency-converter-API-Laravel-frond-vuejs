@@ -42,6 +42,16 @@ const router = createRouter({
         }
       }
     },
+    {
+      path: "/dashbord-createCurrencie",
+      name: "createCurrencie",
+      component:  () => import("../views/FormCreateCurrency.vue"),
+      beforeEnter(){
+        if (localStorage.getItem("token") == null) {
+            return {path:"/"};
+        }
+      }
+    },
     
 
   ],

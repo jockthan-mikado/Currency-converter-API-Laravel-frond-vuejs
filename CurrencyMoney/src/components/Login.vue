@@ -66,9 +66,6 @@ export default {
                 })
             },
      
-        
-
-
     // login() {
     //   console.log("test ici");
     //   //console.log(this.infosData.email,this.infosData.password);

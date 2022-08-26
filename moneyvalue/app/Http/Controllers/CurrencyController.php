@@ -28,26 +28,60 @@ class CurrencyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $request->validate([
+            'currency_name' => "required",
+            'exchange_code' => "required",
+
+        ]);
+        $currency = new Currency();
+        $currency->currency_name = $request->currency_name;
+        $currency->exchange_code = $request->exchange_code;
+
+        $currency->save();
+
+
+        //renvoie de reponse personnalisée
+        return response()->json([
+            "status"=> 1,
+            "message" => "devise crée avec succes"
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request\CurrencyRequest  $CurrencyRequest
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CurrencyRequest $currencyRequest)
+    public function store(Request $request)
     {
-        $currency = Currency::create($currencyRequest->validated()->all());
-        // dd($request->all());
+
+
+        // $currency = Currency::create($currencyRequest->validated()->all());
+        // // dd($request->all());
+        // return response()->json([
+        //     'status' => true,
+        //     'message'=>"ok",
+        //     'post' => $currency
+        // ],200);
+        $request->validate([
+            'currency_name' => "required",
+            'exchange_code' => "required",
+
+        ]);
+        $currency = new Currency();
+        $currency->currency_name = $request->currency_name;
+        $currency->exchange_code = $request->exchange_code;
+
+        $currency->save();
+
+        //renvoie de reponse personnalisée
         return response()->json([
-            'status' => true,
-            'message'=>"ok",
-            'post' => $currency
-        ],200);
+            "status"=> 1,
+            "message" => "devise crée avec succes"
+        ]);
     }
 
     /**
@@ -58,7 +92,23 @@ class CurrencyController extends Controller
      */
     public function show($id)
     {
-        //
+        //on recupère un étudiant si il existe
+        $currency = Currency::where("id",$id)->exists();
+        if($currency){
+            //$info recupère la valeur ou les données de l'etudiant   de l'id trouvé
+            $info = Currency::find($id);
+            return response()->json([
+                "status" => 1,
+                "message" => "étudiant trouvée",
+                "data" => $info
+            ],200);
+        }else{
+            return response()->json([
+                "status" => 0,
+                "message" => "Aucune donnée trouvée",
+                "data" => $currency
+            ],404);
+        }
     }
 
     /**

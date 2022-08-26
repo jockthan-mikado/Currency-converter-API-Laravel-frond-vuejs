@@ -10,18 +10,36 @@
         <!-- @submit.prevent lors de la soumission du formulaire on annule tout comportement par defaut et on applle la fonction submitStudent-->
         <form class="row g-3" @submit.prevent="submitStudent">
           <div class="col-6">
-            <label for="inputDatenaissance" class="form-label">Devise</label>
-            <input
-              v-model="newStudent.dateNaissance"
+            <label for="selectNiveauScolaire" class="form-label"
+              >Devise de depart</label
+            >
+            <select
+              v-model="name"
               required
-              type="date"
-              class="form-control"
-              id="inputDatenaissance"
-            />
+              id="selectNiveauScolaire"
+              class="form-select"
+            >
+              <option value=""></option>
+              <option value="Terminal A">Terminal A</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label for="selectNiveauScolaire" class="form-label"
+              >Devise d'arrivée</label
+            >
+            <select
+              v-model="newStudent.niveauScolaire"
+              required
+              id="selectNiveauScolaire"
+              class="form-select"
+            >
+              <option value=""></option>
+              <option value="Terminal A">Terminal A</option>
+            </select>
           </div>
           <div class="col-6">
             <label for="inputDatenaissance" class="form-label"
-              >Code devise</label
+              >Taux d'échange</label
             >
             <input
               v-model="newStudent.dateNaissance"
@@ -34,7 +52,7 @@
 
           <div class="col-12">
             <button type="submit" class="btn btn-primary">
-              <i class="fas fa-save"></i> Création devise
+              <i class="fas fa-save"></i> Création paire
             </button>
           </div>
         </form>
@@ -44,7 +62,16 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "FormCreatePair",
+  data(){
+    return {
+      formData:{
+         
+      }
+    }
+  }
+};
 </script>
 
 <style>

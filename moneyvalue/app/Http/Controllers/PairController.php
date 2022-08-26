@@ -57,7 +57,23 @@ class PairController extends Controller
      */
     public function show($id)
     {
-        //
+        //on recupère un étudiant si il existe
+        $pair = Pair::where("id",$id)->exists();
+        if($pair){
+            //$info recupère la valeur ou les données de l'etudiant   de l'id trouvé
+            $info = Pair::find($id);
+            return response()->json([
+                "status" => 1,
+                "message" => "étudiant trouvée",
+                "data" => $info
+            ],200);
+        }else{
+            return response()->json([
+                "status" => 0,
+                "message" => "Aucune donnée trouvée",
+                "data" => $pair
+            ],404);
+        }
     }
 
     /**
