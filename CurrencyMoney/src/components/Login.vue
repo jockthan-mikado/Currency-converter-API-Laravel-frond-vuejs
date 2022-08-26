@@ -57,12 +57,15 @@ export default {
   methods: {
      login(){
                 axios.post('http://127.0.0.1:8000/api/login', this.infosData).then((response) => {
-                    localStorage.setItem('token', response.data)
+                    //localStorage.setItem('token', response.data)
+                    localStorage.setItem('token', response.data.access_token)
+                    console.log(response.data)
                     this.$router.push('/dashbord')
                 }).catch((errors) => {
                     this.errors = errors.response.data.errors
                 })
-            }
+            },
+     
         
 
 

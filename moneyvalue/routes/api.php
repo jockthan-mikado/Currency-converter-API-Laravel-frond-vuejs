@@ -20,24 +20,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::get("currencies", [CurrenciesController::class,"listCurrencies"]);
-// Route::get("currency/{id}", [CurrenciesController::class,"getCurrency"]);
-// Route::post("create-currency", [CurrenciesController::class,"create"]);
-// Route::put("update/{id}", [CurrenciesController::class,"update"]);
-// Route::delete("delete/{id}", [CurrenciesController::class,"delete"]);
 
 //Route::apiResource('users', UserController::class);
 Route::post("register", [UserController::class,"register"]);
 Route::post("login", [UserController::class,"login"]);
+//Route::post("logout", [UserController::class,"logout"]);
+Route::apiResource('currencies', CurrencyController::class);
+Route::apiResource('pairs', PairController::class);
+Route::get("logout", [UserController::class,"logout"])->middleware('auth:sanctum');
 
-Route::group(['middleware' =>['auth:sanctum']],function(){
 
-    Route::get("profile", [UserController::class,"profile"]);
-    Route::get("logout", [UserController::class,"logout"]);
-
-    Route::apiResource('currencies', CurrencyController::class);
-    Route::apiResource('pairs', PairController::class);
-});
 
 
 

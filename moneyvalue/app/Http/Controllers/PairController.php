@@ -15,13 +15,13 @@ class PairController extends Controller
      */
     public function index()
     {
+//        return 'plop';
         $pair = Pair::with('currencyFrom','currencyTo')->get();
         return response()->json([
             'status' => true,
             'currencies'=> $pair,
         ]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -96,6 +96,21 @@ class PairController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pair = Pair::where("id",$id)->exists();
+        if($pair) {
+            $pair = Pair::find($id);
+
+            $pair->delete();
+
+            return response()->json([
+                "status" => 1,
+                "message" => "Suppression réussie"
+            ]);
+        }else{
+            return response()->json([
+                "status" => 0,
+                "message" => "pair introuvable"
+            ]);
+        }
     }
 }

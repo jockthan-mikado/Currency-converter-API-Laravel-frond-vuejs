@@ -1,11 +1,11 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-
+import Dashbord from "@/components/Dashbord.vue";
 </script>
 
 <template>
   <div> 
-  <RouterView />
+    <RouterView />
   </div> 
 </template>
 
