@@ -39,8 +39,8 @@
               >
                 Accept
               </button>
-              <button type="button" class="btn btn-sm round btn-outline-danger">
-                Annuler
+              <button type="button" class="btn btn-sm round btn-outline-danger" @click.prevent="deletePair(pair.id)">
+                Supprimer
               </button>
             </td>
           </tr>
@@ -68,23 +68,27 @@ export default {
     };
   },
   mounted() {
-     axios.get("http://127.0.0.1:8000/api/pairs")
-     .then((res) => {
-       this.pairs = res.data.currencies;
-       console.log("response",res.data.currencies);
-     })
+    this.getPairs();
   },
   methods:{
     deletePair(id){
       axios.delete(`http://127.0.0.1:8000/api/pairs/${id}`)
       .then((res)=>{
         console.log("réussi")
+        this.getPairs()
       })
       .catch(error=>{
         console.log(error)
       })
+    },
+    async getPairs(){
+      await axios.get("http://127.0.0.1:8000/api/pairs")
+     .then((res) => {
+       this.pairs = res.data.currencies;
+       console.log("response",res.data.currencies);
+     })
     }
-  }
+  },
 };
 </script>
 
