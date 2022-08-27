@@ -19,27 +19,14 @@
                 ></font-awesome-icon>
               </RouterLink>
             </li>
-            <li :class="{ active: selected === 'posts-feed' }">
-              <RouterLink
-                @click="setSelected('dashbord')"
-                to="/dashbord"
-                >Articles</RouterLink
+            <li :class="{ active: selected === 'listecurrency' }">
+              <RouterLink @click="setSelected('listecurrency')" to="/dashbord-liste-currency"
+                >Currency</RouterLink
               >
             </li>
-            <li :class="{ active: selected === 'dashbord-listepair' }">
-              <RouterLink @click="setSelected('listepair')" to="/dashbord-listepair"
-                >A propos</RouterLink
-              >
-            </li>
-            <li>
+            <!-- <li>
               <a href="#" class="active">Accueil</a>
-            </li>
-            <li>
-              <a href="#">Pairs</a>
-            </li>
-            <li>
-              <a href="#">Currency</a>
-            </li>
+            </li> -->
           </ul>
         </nav>
       </div>
@@ -52,15 +39,21 @@
         </p>
 
         <div id="dropdown" class="user-wrapp">
-          <form class="form-horizontal" method="get" @submit.prevent="logout">
-            <button class="btn btn-outline-success">Déconnexion</button>
-          </form>
+          <button
+            type="submit"
+            @click.prevent="logout"
+            class="btn btn-outline-success"
+          >
+            Déconnexion
+          </button>
         </div>
       </header>
       <main>
         <div class="col-lg-12 col-md-12 col-sm-12 m-2 p-2">
           <div class="card">
-            <div class="body"></div>
+            <div class="body">
+              <RouterView />
+            </div>
           </div>
         </div>
       </main>
@@ -71,13 +64,42 @@
 
 
 
-<script setup>
+<script>
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import "../assets/style_dashbord.css";
+import axios from "axios";
 import { ref, onMounted } from "vue";
+ 
+export default {
+  data() {
 
-
+    return {
+      token: null,
+    };
+  },
+  methods: {
+    logout() {
+      console.log("exit deconnecte", localStorage.getItem("token"));
+      localStorage.removeItem("token");
+      this.$router.push("/");
+      let token_get = localStorage.getItem("token");
+      console.log("token_get", token_get);
+      axios
+        .get("http://127.0.0.1:8000/api/logout", {
+          headers: {},
+        })
+        .then((response) => {
+          localStorage.removeItem("token");
+          console.log(response);
+          this.$router.push("/");
+        })
+        .catch((errors) => {
+          console.log("errors");
+        });
+    },
+  },
+};
 // reactive state
 const selected = ref("home");
 

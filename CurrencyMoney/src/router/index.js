@@ -15,7 +15,8 @@ const router = createRouter({
       component: () => import("../views/LoginView.vue"),
       beforeEnter(){
         if (localStorage.getItem("token")) {
-            return {path:"/dashbord"};
+            // return {path:"/dashbord"};
+            return {path:"/dashbord-listepair"};
         }
       }
     },
@@ -23,7 +24,6 @@ const router = createRouter({
     {
       path: "/dashbord",
       name: "dashbord",
-      
       component: () => import("../views/DashbordView.vue"),
       beforeEnter(){
         if (localStorage.getItem("token") == null) {
@@ -43,9 +43,50 @@ const router = createRouter({
       }
     },
     {
+      path: "/dashbord-liste-currency",
+      name: "listecurrency",
+      component:  () => import("../views/TableListCurrencyView.vue"),
+      beforeEnter(){
+        if (localStorage.getItem("token") == null) {
+            return {path:"/"};
+        }
+      }
+    },
+    {
       path: "/dashbord-createCurrencie",
-      name: "createCurrencie",
-      component:  () => import("../views/FormCreateCurrency.vue"),
+      name: "createCurrency",
+      component:  () => import("../views/FormCreateCurrencyView.vue"),
+      beforeEnter(){
+        if (localStorage.getItem("token") == null) {
+            return {path:"/"};
+        }
+      }
+    },
+    
+    {
+      path: "/dashbord-update-currencie/:id",
+      name: "updateCurrency",
+      component:  () => import("../views/FormUpdateCurrency.vue"),
+      beforeEnter(){
+        if (localStorage.getItem("token") == null) {
+            return {path:"/"};
+        }
+      }
+    },
+    {
+      path: "/updatepair/:id",
+      name: "updatePair",
+      component:  () => import("../views/FormUpadatePair.vue"),
+      beforeEnter(){
+        if (localStorage.getItem("token") == null) {
+            return {path:"/"};
+        }
+      }
+    },
+    {
+      path: "/createpair",
+      name: "createPair",
+      component:  () => import("../views/FormCreatePairView.vue"),
       beforeEnter(){
         if (localStorage.getItem("token") == null) {
             return {path:"/"};

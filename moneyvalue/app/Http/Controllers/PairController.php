@@ -35,18 +35,29 @@ class PairController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request\PairRequest  $pairRequest
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PairRequest $pairRequest)
+    public function store(Request $request)
     {
-        $pair = Pair::create($pairRequest->validated()->all());
-        // dd($request->all());
+        $request->validate([
+            'currency_id_from' => "required",
+            'currency_id_to' => "required",
+            'rate' => "required",
+
+        ]);
+        $pairs = new Pair();
+        $pairs->currency_id_from = $request->currency_id_from;
+        $pairs->currency_id_to = $request->currency_id_to;
+        $pairs->rate = $request->rate;
+
+        $pairs->save();
+
+        //renvoie de reponse personnalisée
         return response()->json([
-            'status' => true,
-            'message'=>"ok",
-            'post' => $pair
-        ],200);
+            "status"=> 1,
+            "message" => "paire crée avec succes"
+        ]);
     }
 
     /**
@@ -94,14 +105,28 @@ class PairController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PairRequest $pairRequest, Pair $pair)
+    public function update(Request $request, $id)
     {
-        $pair->update($pairRequest->all());
-        return response()->json([
-            'status' => true,
-            'message'=>"ok",
-            'post' => $pair
-        ],200);
+        $pairs = Pair::where("id",$id)->exists();
+        if($pairs){
+            //$info recupère la valeur ou les données de l'etudiant   de l'id trouvé
+            $info = Pair::find($id);
+            $info->currency_id_from = $request->currency_id_from;
+            $info->currency_id_to = $request->currency_id_to;
+            $info->rate = $request->rate;
+
+            $info->save();
+            return response()->json([
+                "status" => 1,
+                "message" => "Mise à jour réussi",
+                "data" => $info
+            ]);
+        }else{
+            return response()->json([
+                "status" => 0,
+                "message" => "paire introuvable"
+            ]);
+        }
     }
 
     /**

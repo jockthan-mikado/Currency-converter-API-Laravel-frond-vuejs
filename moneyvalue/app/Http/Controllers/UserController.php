@@ -68,8 +68,9 @@ class UserController extends Controller
     }
     public function logout(Request $resquest)
     {
+        dd(" checktoken");
        //Auth::user()->tokens()->delete();
-       $resquest->user()->currentAccessToken()->delete();
+    //$resquest->user()->currentAccessToken()->delete();
         return response()->json([
             'status' => 1,
             'message' => 'Deconnexion successful',
