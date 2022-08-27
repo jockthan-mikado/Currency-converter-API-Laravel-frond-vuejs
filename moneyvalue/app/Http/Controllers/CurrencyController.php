@@ -129,14 +129,27 @@ class CurrencyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CurrencyRequest $CurrencyRequest, Currency $currency)
+    public function update(Request $request, $id)
     {
-        $currency->update($CurrencyRequest->all());
-        return response()->json([
-            'status' => true,
-            'message'=>"ok",
-            'post' => $currency
-        ],200);
+        $currency = Currency::where("id",$id)->exists();
+        if($currency){
+            //$info recupère la valeur ou les données de l'etudiant   de l'id trouvé
+            $info = Currency::find($id);
+            $info->currency_name = $request->currency_name;
+            $info->exchange_code = $request->exchange_code;
+
+            $info->save();
+            return response()->json([
+                "status" => 1,
+                "message" => "Mise à jour réussi",
+                "data" => $info
+            ]);
+        }else{
+            return response()->json([
+                "status" => 0,
+                "message" => "Devise introuvable"
+            ]);
+        }
     }
 
     /**
@@ -147,6 +160,21 @@ class CurrencyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $currency = Currency::where("id",$id)->exists();
+        if($currency) {
+            $currency = Currency::find($id);
+
+            $currency->delete();
+
+            return response()->json([
+                "status" => 1,
+                "message" => "Suppression réussie"
+            ]);
+        }else{
+            return response()->json([
+                "status" => 0,
+                "message" => "pair introuvable"
+            ]);
+        }
     }
 }

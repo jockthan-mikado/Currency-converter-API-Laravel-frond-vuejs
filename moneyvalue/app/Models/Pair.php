@@ -23,4 +23,8 @@ class Pair extends Model
     public function currencyTo(){
         return $this->belongsTo(Currency::class,'currency_id_to');
     }
+    public function convert(){
+        return $this->hasOne(Convert::class);
+    }
+
 }
