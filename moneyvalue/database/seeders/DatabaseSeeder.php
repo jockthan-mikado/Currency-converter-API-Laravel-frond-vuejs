@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CurrencyTableSeeder::class,
             UserTableSeeder::class,
-            PairsTableSeeder::class
+            PairsTableSeeder::class,
+            ConvertTableSeeder::class
         ]);
     }
 }
