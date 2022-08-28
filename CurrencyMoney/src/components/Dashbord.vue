@@ -1,5 +1,7 @@
 <template>
+  
   <section>
+   
     <input type="checkbox" name="" id="menu" />
     <div class="sidebar">
       <div class="sidebar-brand">
@@ -7,10 +9,12 @@
       </div>
 
       <div class="sidebar-menu">
+
         <nav>
+           
           <ul>
             <li :class="{ active: selected === 'login' }">
-              <RouterLink @click="setSelected('login')" to="/">
+              <RouterLink to="/dashbord-listepair">
                 Pairs
                 <!-- Add Icons using String format -->
                 <font-awesome-icon
@@ -20,7 +24,7 @@
               </RouterLink>
             </li>
             <li :class="{ active: selected === 'listecurrency' }">
-              <RouterLink @click="setSelected('listecurrency')" to="/dashbord-liste-currency"
+              <RouterLink  to="/dashbord-liste-currency"
                 >Currency</RouterLink
               >
             </li>
