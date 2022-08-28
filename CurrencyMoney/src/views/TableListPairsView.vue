@@ -20,7 +20,7 @@
             <th>Id</th>
             <th>Paires</th>
             <th>Taux d'echanges</th>
-            <th></th>
+            <th>Nombre de conversion</th>
           </tr>
         </thead>
         <tbody>
@@ -31,6 +31,7 @@
               {{ pair.currency_to.exchange_code }}
             </td>
             <td>{{ pair.rate }}</td>
+             <td>{{ pair.exchange_number }}</td>
             <td>
               <router-link
                 :to="`/updatepair/${pair.id }`"

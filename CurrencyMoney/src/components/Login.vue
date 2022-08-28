@@ -61,7 +61,7 @@ export default {
                     localStorage.setItem('token', response.data.access_token)
                     console.log(response.data)
                       //this.$router.push('/')
-                      window.location.href="/"
+                      window.location.href="/dashbord-listepairs"
                     //this.$router.push('/dashbord-listepair')
                 }).catch((errors) => {
                     this.errors = errors.response.data.errors
