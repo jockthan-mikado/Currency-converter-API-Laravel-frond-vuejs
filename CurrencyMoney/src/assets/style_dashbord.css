@@ -28,6 +28,9 @@
 .sidebar-menu{
 	margin-top: 1rem;
 }
+.sidebar-menu ul{
+	padding-left: 0;
+}
 .sidebar-menu a{
 	padding-left: 1rem;
 	display: block;
@@ -52,21 +55,25 @@
 }
 .content{
 	transition: margin-left 300ms;
-	margin-left: 22%;
+	margin-left: 300px;
 }
 header{
 	background-color: #fff;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	padding: 1rem;
 	box-shadow: 2px 5px 15px 2px rgb(0 0 0 / 10%);
 	position: fixed;
-	left: 22%;
-	width: calc(100% - 22%);
+	left: 300px;
+	width: calc(100% - 300px);
 	top: 0;
 	z-index: 100;
 	transition: left 300ms;
 }
+header>p, header .btn{
+	margin-bottom: 0;
+} 
 .accueil{
 	font-size: 1.5rem;
 	padding-right: 1rem;
@@ -130,10 +137,13 @@ header{
 	padding: .5rem;
 }
 main{
-	margin-top: 80px;
+	/* margin-top: 80px; */
 	background-color: #ebf6ff;
-	padding: 2rem 1.5rem;
+	padding: 4rem 1.5rem;
 	min-height: calc(100vh);
+}
+main .card{
+	padding: 2rem ;
 }
 .cards{
 	display: grid;

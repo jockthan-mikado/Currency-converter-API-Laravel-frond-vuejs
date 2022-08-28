@@ -15,17 +15,12 @@
           <ul>
             <li :class="{ active: selected === 'login' }">
               <RouterLink to="/dashbord-listepair">
-                Pairs
-                <!-- Add Icons using String format -->
-                <font-awesome-icon
-                  class="home-icon"
-                  icon="fa-solid fa-home-alt"
-                ></font-awesome-icon>
+                 <span></span><span>Pairs</span>
               </RouterLink>
             </li>
             <li :class="{ active: selected === 'listecurrency' }">
               <RouterLink  to="/dashbord-liste-currency"
-                >Currency</RouterLink
+                > <span></span><span>Currency</span></RouterLink
               >
             </li>
             <!-- <li>

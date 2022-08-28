@@ -1,6 +1,14 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
+import Dashbord from "@/components/Dashbord.vue";
+/* add fontawesome core */
+// import { library } from '@fortawesome/fontawesome-svg-core'
+
+// /* add some free styles */
+// import { faCircleDollar } from '@fortawesome/free-brands-svg-icons'
+
+// library.add(faCircleDollar)
 
 import "./assets/main.css";
 // import {Vue} from 'vue'
