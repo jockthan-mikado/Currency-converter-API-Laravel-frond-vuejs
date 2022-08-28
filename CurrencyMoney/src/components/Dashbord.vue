@@ -15,12 +15,12 @@
           <ul>
             <li :class="{ active: selected === 'login' }">
               <RouterLink to="/dashbord-listepair">
-                 <span></span><span>Pairs</span>
+                 <span></span><span>Paires</span>
               </RouterLink>
             </li>
             <li :class="{ active: selected === 'listecurrency' }">
               <RouterLink  to="/dashbord-liste-currency"
-                > <span></span><span>Currency</span></RouterLink
+                > <span></span><span>Devise</span></RouterLink
               >
             </li>
             <!-- <li>
@@ -80,15 +80,19 @@ export default {
   methods: {
     logout() {
         let inMemoryToken = localStorage.getItem('token')
-        axios.post("http://127.0.0.1:8000/api/logout",{
+        fetch("http://127.0.0.1:8000/api/logout",{
+        method: 'post',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${inMemoryToken}`
         },
-    } ).then( res =>{
+    } )
+    .then(res=>res.json())
+    .then( res =>{
           localStorage.removeItem('token')
-          this.$router.push('/')
+           window.location.href="/dashbord-listepairs"
+          
           })
           .catch(err => console.log(err));
     },

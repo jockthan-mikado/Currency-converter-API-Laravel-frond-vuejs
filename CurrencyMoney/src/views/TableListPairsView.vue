@@ -1,10 +1,7 @@
 <template>
   <section>
     <div>
-      <RouterLink
-        to="/createpair"
-        class="btn btn-sm round btn-outline-success"
-      >
+      <RouterLink to="/createpair" class="btn btn-sm round btn-outline-success">
         Ajouter une paire
       </RouterLink>
     </div>
@@ -31,12 +28,12 @@
               {{ pair.currency_to.exchange_code }}
             </td>
             <td>{{ pair.rate }}</td>
-             <td>{{ pair.exchange_number }}</td>
+            <td>{{ pair.exchange_number }}</td>
             <td>
               <router-link
-                :to="`/updatepair/${pair.id }`"
+                :to="`/updatepair/${pair.id}`"
                 class="btn btn-sm round btn-outline-success"
-                 >
+              >
                 Modifier
               </router-link>
               <button
@@ -59,6 +56,7 @@
 
 <script>
 import axios from "axios";
+import Swal from 'sweetalert2'
 export default {
   name: "TableListPairs",
 
@@ -72,20 +70,45 @@ export default {
   },
   methods: {
     deletePair(id) {
-      axios
-        .delete(`http://127.0.0.1:8000/api/pairs/${id}`)
-        .then((res) => {
-          console.log("réussi");
-          // this.getPairs()
-          let i = this.pairs.map((data) => data.id).indexOf(id);
-          this.pairs.splice(i, 1);
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger",
+        },
+        buttonsStyling: false,
+      });
+
+      swalWithBootstrapButtons
+        .fire({
+          title: "Es-tu sûr de vouloir supprimer?",
+          text: "Verifiez bien votre choix",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Oui, supprimer",
+          cancelButtonText: "Non, annuler!",
+          reverseButtons: true,
         })
-        .catch((error) => {
-          console.log(error);
+        .then((result) => {
+          if (result.isConfirmed) {
+            axios
+            .delete(`http://127.0.0.1:8000/api/pairs/${id}`)
+            .then((res) => {
+              console.log("réussi");
+              // this.getPairs()
+              let i = this.pairs.map((data) => data.id).indexOf(id);
+              this.pairs.splice(i, 1);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+          } 
         });
+
+    
     },
     async getPairs() {
-      console.log("ici")
+      console.log("ici");
       await axios.get("http://127.0.0.1:8000/api/pairs").then((res) => {
         this.pairs = res.data.currencies;
         console.log("response this.pairs", this.pairs);

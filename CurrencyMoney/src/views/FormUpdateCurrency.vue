@@ -4,7 +4,7 @@
       <div class="mb-4" >
         <div class="d-flex mb-2">
           <h5 class="card-title flex-grow-1">
-            Formulaire de modification d'une paire
+            Formulaire de modification d'une devise
           </h5>
         </div>
         <!-- @submit.prevent lors de la soumission du formulaire on annule tout comportement par defaut et on applle la fonction submitStudent-->

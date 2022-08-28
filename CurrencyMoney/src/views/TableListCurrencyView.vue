@@ -27,19 +27,23 @@
           <tr v-for="currency in currencies" :key="currency.id">
             <td>{{ currency.id }}</td>
             <td>
-              {{ currency.currency_name }} 
+              {{ currency.currency_name }}
             </td>
             <td>
               {{ currency.exchange_code }}
             </td>
             <td>
               <router-link
-                :to="`/dashbord-update-currencie/${currency.id }`"
+                :to="`/dashbord-update-currencie/${currency.id}`"
                 class="btn btn-sm round btn-outline-success"
-                 >
+              >
                 Modifier
               </router-link>
-              <button type="button" class="btn btn-sm round btn-outline-danger" @click.prevent="deleteCurrency(currency.id)">
+              <button
+                type="button"
+                class="btn btn-sm round btn-outline-danger"
+                @click.prevent="deleteCurrency(currency.id)"
+              >
                 Suppression
               </button>
             </td>
@@ -51,11 +55,11 @@
 </template>
 
 <script>
-
 import axios from "axios";
+import Swal from "sweetalert2";
 export default {
-     name: "TableListCurrency",
-      data() {
+  name: "TableListCurrency",
+  data() {
     return {
       currencies: [],
     };
@@ -63,31 +67,48 @@ export default {
   mounted() {
     this.getCurrencies();
   },
-   methods:{
-    deleteCurrency(id){
-     
-      console.log("ici")
-      axios.delete(`http://127.0.0.1:8000/api/currencies/${id}`)
-      .then((res)=>{
-     
-        let i = this.currencies.map((data) => data.id).indexOf(id);
-        this.currencies.splice(i, 1);
-      })
-      .catch(error=>{
-        console.log(error)
-      })
-    },
-    async getCurrencies(){
-      
-      await axios.get("http://127.0.0.1:8000/api/currencies")
-     .then((res) => {
-       this.currencies = res.data.currencies;
-       console.log("response",res.data.currencies);
-     })
-    }
-  },
+  methods: {
+    deleteCurrency(id) {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger",
+        },
+        buttonsStyling: false,
+      });
 
-     
+      swalWithBootstrapButtons
+        .fire({
+          title: "Es-tu sûr de vouloir supprimer?",
+          text: "Verifiez bien votre choix",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Oui, supprimer",
+          cancelButtonText: "Non, annuler!",
+          reverseButtons: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            axios
+              .delete(`http://127.0.0.1:8000/api/currencies/${id}`)
+              .then((res) => {
+               
+                let i = this.currencies.map((data) => data.id).indexOf(id);
+                this.currencies.splice(i, 1);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        });
+    },
+    async getCurrencies() {
+      await axios.get("http://127.0.0.1:8000/api/currencies").then((res) => {
+        this.currencies = res.data.currencies;
+        console.log("response", res.data.currencies);
+      });
+    },
+  },
 };
 </script>
 

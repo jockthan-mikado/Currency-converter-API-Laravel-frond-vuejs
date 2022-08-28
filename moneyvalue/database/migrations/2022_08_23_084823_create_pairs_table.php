@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('pairs', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('currency_id_from')->unsigned()->nullable();
-            $table->foreign('currency_id_from')->references('id')->on('currencies');
+            $table->foreign('currency_id_from')->references('id')->on('currencies')->onDelete('CASCADE');
             $table->bigInteger('currency_id_to')->unsigned()->nullable();
-            $table->foreign('currency_id_to')->references('id')->on('currencies');
+            $table->foreign('currency_id_to')->references('id')->on('currencies')->onDelete('CASCADE');
             $table->float('rate');
             $table->integer('exchange_number')->default(0);
-            $table->unique(['currency_id_from', 'currency_id_from']);
+
 
             $table->timestamps();
         });

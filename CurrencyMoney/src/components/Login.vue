@@ -5,7 +5,7 @@
         <div class="row ">
           <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 w-100">
             <div class="form-container">
-              <h3 class="title">My Account</h3>
+              <h3 class="title">Currency converter API</h3>
               <form class="form-horizontal" method="post" @submit.prevent="login">
                 <div class="form-icon">
                   <i class="fa fa-user-circle"></i>
@@ -57,30 +57,18 @@ export default {
   methods: {
      login(){
                 axios.post('http://127.0.0.1:8000/api/login', this.infosData).then((response) => {
-                    //localStorage.setItem('token', response.data)
+                   
                     localStorage.setItem('token', response.data.access_token)
                     console.log(response.data)
-                      //this.$router.push('/')
+                     
                       window.location.href="/dashbord-listepairs"
-                    //this.$router.push('/dashbord-listepair')
+                   
                 }).catch((errors) => {
                     this.errors = errors.response.data.errors
                 })
             },
      
-    // login() {
-    //   console.log("test ici");
-    //   //console.log(this.infosData.email,this.infosData.password);
-    //    //   fetch("http://127.0.0.1:8000/api/login", this.infosData).then((response) => {
-    //       axios.post("http://127.0.0.1:8000/api/login", this.infosData).then((response) => {
-    //       console.log(response)
-    //       localStorage.setItem("token", response.data)
-    //       this.$route.push("/dashbord")
-    //     })
-    //     .catch((erros) => {
-    //       this.errors = errors.response.date.errors;
-    //     });
-    // },
+    
   },
 };
 </script>
