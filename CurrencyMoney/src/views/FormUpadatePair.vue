@@ -51,7 +51,7 @@
 
           <div class="col-12">
             <button type="submit" class="btn btn-primary">
-              Création paire
+               Mettre à jour
             </button>
           </div>
         </form>

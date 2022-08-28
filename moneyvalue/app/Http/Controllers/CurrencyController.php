@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Currency;
 use Illuminate\Http\Request;
 use App\Http\Requests\CurrencyRequest;
@@ -30,23 +31,23 @@ class CurrencyController extends Controller
      */
     public function create(Request $request)
     {
-        $request->validate([
-            'currency_name' => "required",
-            'exchange_code' => "required",
+        // $request->validate([
+        //     'currency_name' => "required",
+        //     'exchange_code' => "required",
 
-        ]);
-        $currency = new Currency();
-        $currency->currency_name = $request->currency_name;
-        $currency->exchange_code = $request->exchange_code;
+        // ]);
+        // $currency = new Currency();
+        // $currency->currency_name = $request->currency_name;
+        // $currency->exchange_code = $request->exchange_code;
 
-        $currency->save();
+        // $currency->save();
 
 
-        //renvoie de reponse personnalisée
-        return response()->json([
-            "status"=> 1,
-            "message" => "devise crée avec succes"
-        ]);
+        // //renvoie de reponse personnalisée
+        // return response()->json([
+        //     "status"=> 1,
+        //     "message" => "devise crée avec succes"
+        // ]);
     }
 
     /**
@@ -57,25 +58,44 @@ class CurrencyController extends Controller
      */
     public function store(Request $request)
     {
+        // $request->validate([
+        //     'currency_name' => "required",
+        //     'exchange_code' => "required",
+        // ]);
+        $tabCurrencies =$request->all();
+        if($tabCurrencies["currency_name"] && $tabCurrencies["exchange_code"]){
+            $currency = new Currency();
+            $currency->currency_name = strtoupper($tabCurrencies["currency_name"]);
+            $currency->exchange_code = strtoupper($tabCurrencies["exchange_code"]);
+
+            
+            $isCurrency_nameExist = Currency::where("currency_name",$currency->currency_name)->exists();
+            $isExchange_codeExist = Currency::where("exchange_code",$currency->exchange_code)->exists();
+
+            //dd($isCurrency_nameExist,$isExchange_codeExist );
+            if( $isCurrency_nameExist ||  $isExchange_codeExist){
+
+                return response()->json([
+                    "status" => 1,
+                    "message" => "currency alrady exists",
+                ]);
+            }else{
+                $currency->save();
+                return response()->json([
+                    "status" => 1,
+                    "message" => 'create successful',
+                ],200);
+            }
+
+        }
 
 
-        // $currency = Currency::create($currencyRequest->validated()->all());
-        // // dd($request->all());
-        // return response()->json([
-        //     'status' => true,
-        //     'message'=>"ok",
-        //     'post' => $currency
-        // ],200);
-        $request->validate([
-            'currency_name' => "required",
-            'exchange_code' => "required",
 
-        ]);
-        $currency = new Currency();
-        $currency->currency_name = $request->currency_name;
-        $currency->exchange_code = $request->exchange_code;
 
-        $currency->save();
+
+
+        //
+
 
         //renvoie de reponse personnalisée
         return response()->json([

@@ -31,6 +31,11 @@ class UserController extends Controller
             'message' => 'User create'
         ]);
     }
+    /**
+     * Login
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function login(Request $request)
     {
         $request -> validate([
@@ -66,23 +71,29 @@ class UserController extends Controller
         }
 
     }
-    public function logout(Request $resquest)
+       /**
+     * Logout
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
     {
-        $revokeToken = $resquest->user()->tokens()->delete();
+        $request->user()->currentAccessToken()->delete();
 
-        if($revokeToken){
-            return response()->json([
-                'status' => 1,
-                'message' => 'Deconnexion successful',
-            ]);
-        } else {
-            return response()->json([
-                'status' => 0,
-                'message' => 'fail disconnect'
-            ]);
-        }
+        return response()->json(['msg' => 'Logout Successfull']);
+        // $revokeToken = $resquest->user()->tokens()->delete();
 
-
+        // if($revokeToken){
+        //     return response()->json([
+        //         'status' => 1,
+        //         'message' => 'Deconnexion successful',
+        //     ]);
+        // } else {
+        //     return response()->json([
+        //         'status' => 0,
+        //         'message' => 'fail disconnect'
+        //     ]);
+        // }
 
     }
     public function profile(Request $resquest)

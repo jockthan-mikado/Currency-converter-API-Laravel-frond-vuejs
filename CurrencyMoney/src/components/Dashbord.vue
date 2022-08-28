@@ -84,23 +84,18 @@ export default {
   },
   methods: {
     logout() {
-      
-      // localStorage.removeItem("token");
-      // this.$router.push("/");
-      let token_get = localStorage.getItem("token");
-      console.log("token_get", token_get);
-      axios
-        .post("http://127.0.0.1:8000/api/logout",{
-          headers: { Authorization: `Bearer ${token_get}` }
-        })
-        .then((response) => {
-          localStorage.removeItem("token");
-          console.log(response);
-          this.$router.push("/dashbord");
-        })
-        .catch((errors) => {
-          console.log("errors");
-        });
+        let inMemoryToken = localStorage.getItem('token')
+        axios.post("http://127.0.0.1:8000/api/logout",{
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${inMemoryToken}`
+        },
+    } ).then( res =>{
+          localStorage.removeItem('token')
+          this.$router.push('/')
+          })
+          .catch(err => console.log(err));
     },
   },
 };

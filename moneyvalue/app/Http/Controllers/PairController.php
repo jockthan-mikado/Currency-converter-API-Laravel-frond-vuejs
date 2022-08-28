@@ -16,7 +16,7 @@ class PairController extends Controller
     public function index()
     {
 //        return 'plop';
-        $pair = Pair::with('currencyFrom','currencyTo')->get();
+        $pair = Pair::latest()->with('currencyFrom','currencyTo')->get();
         return response()->json([
             'status' => true,
             'currencies'=> $pair,
@@ -40,12 +40,40 @@ class PairController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'currency_id_from' => "required",
-            'currency_id_to' => "required",
-            'rate' => "required",
+        // $request->validate([
+        //     'currency_id_from' => "required",
+        //     'currency_id_to' => "required",
+        //     'rate' => "required",
+        // ]);
+        // $tabPair = $request->all();
 
-        ]);
+        // if($tabPair["currency_id_from"] && $tabPair["currency_id_to"]){
+        //     $pairs = new Pair();
+        //     $pairs->currency_id_from = $tabPair["currency_id_from"];
+        //     $pairs->currency_id_to = $tabPair["currency_id_to"];
+
+        //     $isPairFromExist = Pair::where("currency_id_from",$pairs->currency_id_from)->exists();
+        //     $isPairtoExist = Pair::where("currency_id_to",$pairs->currency_id_to)->exists();
+
+        //     dd(Pair::where("currency_id_from",$pairs->currency_id_from)->exists());
+        //     if( $isPairFromExist && $isPairtoExist ){
+        //         return response()->json([
+        //             "status" => 1,
+        //             "message" => "Pair alrady exists",
+        //         ]);
+        //     }else{
+        //         dd($pairs);
+        //         $pairs->save();
+        //         return response()->json([
+        //             "status" => 1,
+        //             "message" => 'create successful',
+        //         ],200);
+        //     }
+
+        // }
+
+
+
         $pairs = new Pair();
         $pairs->currency_id_from = $request->currency_id_from;
         $pairs->currency_id_to = $request->currency_id_to;

@@ -32,7 +32,7 @@
 
           <div class="col-12">
             <button type="submit" class="btn btn-primary">
-               Création devise
+               Créer
             </button>
           </div>
         </form>
@@ -62,7 +62,7 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
-          this.$router.push("/dashbord");
+          this.$router.push("/dashbord-liste-currency");
         })
         .catch((errors) => {
           this.errors = errors.response.data.errors;

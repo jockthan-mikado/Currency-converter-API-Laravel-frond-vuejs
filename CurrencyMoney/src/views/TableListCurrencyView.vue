@@ -1,12 +1,12 @@
 <template>
   <section>
     <div>
-      <button
-        type="button"
+      <RouterLink
         class="btn btn-sm round btn-outline-success"
+        to="/dashbord-createCurrencie"
       >
         Ajouter une devise
-      </button>
+      </RouterLink>
     </div>
     <div class="header">
       <h2>Listes de devises</h2>

@@ -31,8 +31,11 @@ Route::get('test/{value}/{currency_from}/{currency_to}', [PairController::class,
 Route::apiResource('currencies', CurrencyController::class);
 Route::apiResource('pairs', PairController::class);
 
-Route::middleware(['auth:sanctum'])->group(function (){
-    Route::post("logout", [UserController::class,"logout"]);
+Route::middleware('auth:sanctum')->group(function (){
+    Route::post("logout", [UserController::class,'logout']);
+});
+Route::middleware('auth:sanctum')->group(function() {
+    Route::post("logout", [UserController::class, 'logout']);
 });
 //Route::post("logout", [UserController::class,"logout"])->middleware('auth:sanctum');
 
