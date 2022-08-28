@@ -96,10 +96,10 @@ class PairController extends Controller
      */
     public function show($id)
     {
-        //on recupère un étudiant si il existe
+
         $pair = Pair::where("id",$id)->exists();
         if($pair){
-            //$info recupère la valeur ou les données de l'etudiant   de l'id trouvé
+
             $info = Pair::find($id);
             return response()->json([
                 "status" => 1,
@@ -137,10 +137,10 @@ class PairController extends Controller
     {
         $pairs = Pair::where("id",$id)->exists();
         if($pairs){
-            //$info recupère la valeur ou les données de l'etudiant   de l'id trouvé
+
             $info = Pair::find($id);
-            $info->currency_id_from = $request->currency_id_from;
-            $info->currency_id_to = $request->currency_id_to;
+            $info->currency_id_from = strtoupper($request->currency_id_from);
+            $info->currency_id_to = strtoupper($request->currency_id_to);
             $info->rate = $request->rate;
 
             $info->save();

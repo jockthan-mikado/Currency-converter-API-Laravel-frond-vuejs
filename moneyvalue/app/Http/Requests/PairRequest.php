@@ -24,9 +24,9 @@ class PairRequest extends FormRequest
     public function rules()
     {
         return [
-			'currency_id_from' => 'required', //On exige l'obligation de la saisie du champ et avec 5 caractères au minimum
-			'currency_id_to'   => 'required',//On exige l'obligation de la saisie du champ avec des chaines caractères (string)
-            'rate'             =>  'required|'
+			'currency_id_from' => 'required',
+			'currency_id_to'   => 'required',
+            'rate'             =>  'required'
         ];
     }
 
