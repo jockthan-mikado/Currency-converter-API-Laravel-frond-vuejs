@@ -68,13 +68,21 @@ class UserController extends Controller
     }
     public function logout(Request $resquest)
     {
-        dd(" checktoken");
-       //Auth::user()->tokens()->delete();
-    //$resquest->user()->currentAccessToken()->delete();
-        return response()->json([
-            'status' => 1,
-            'message' => 'Deconnexion successful',
-        ]);
+        $revokeToken = $resquest->user()->tokens()->delete();
+
+        if($revokeToken){
+            return response()->json([
+                'status' => 1,
+                'message' => 'Deconnexion successful',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 0,
+                'message' => 'fail disconnect'
+            ]);
+        }
+
+
 
     }
     public function profile(Request $resquest)

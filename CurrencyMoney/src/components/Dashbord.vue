@@ -45,7 +45,7 @@
         <div id="dropdown" class="user-wrapp">
           <button
             type="submit"
-            @click.prevent="logout"
+            @click="logout"
             class="btn btn-outline-success"
           >
             Déconnexion
@@ -84,19 +84,19 @@ export default {
   },
   methods: {
     logout() {
-      console.log("exit deconnecte", localStorage.getItem("token"));
-      localStorage.removeItem("token");
-      this.$router.push("/");
+      
+      // localStorage.removeItem("token");
+      // this.$router.push("/");
       let token_get = localStorage.getItem("token");
       console.log("token_get", token_get);
       axios
-        .get("http://127.0.0.1:8000/api/logout", {
-          headers: {},
+        .post("http://127.0.0.1:8000/api/logout",{
+          headers: { Authorization: `Bearer ${token_get}` }
         })
         .then((response) => {
           localStorage.removeItem("token");
           console.log(response);
-          this.$router.push("/");
+          this.$router.push("/dashbord");
         })
         .catch((errors) => {
           console.log("errors");

@@ -66,7 +66,7 @@ export default {
    methods:{
     deleteCurrency(id){
      
-      
+      console.log("ici")
       axios.delete(`http://127.0.0.1:8000/api/currencies/${id}`)
       .then((res)=>{
      
@@ -78,6 +78,7 @@ export default {
       })
     },
     async getCurrencies(){
+      
       await axios.get("http://127.0.0.1:8000/api/currencies")
      .then((res) => {
        this.currencies = res.data.currencies;
