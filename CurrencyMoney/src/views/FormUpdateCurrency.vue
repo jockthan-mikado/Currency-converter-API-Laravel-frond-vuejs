@@ -8,7 +8,7 @@
           </h5>
         </div>
         <!-- @submit.prevent lors de la soumission du formulaire on annule tout comportement par defaut et on applle la fonction submitStudent-->
-        <form class="row g-3" @submit.prevent="create">
+        <form class="row g-3" @submit.prevent="update">
           <div class="col-6">
             <label for="name" class="form-label">Devise</label>
             <input
@@ -66,7 +66,7 @@ export default {
         })
 
     },
-    create() {
+    update() {
       this.id = this.$route.params.id;
       axios
         .put(`http://127.0.0.1:8000/api/currencies/${this.id}`,{
@@ -76,7 +76,8 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
-          this.$router.push("/dashbord-createCurrencie");
+           this.$router.push("/dashbord-liste-currency");
+           
         })
         .catch((errors) => {
           this.errors = errors.response.data.errors;

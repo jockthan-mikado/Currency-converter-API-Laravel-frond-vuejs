@@ -15,6 +15,8 @@ class CurrencyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //
+    //show all currency list
     public function index()
     {
         $currency = Currency::all();
@@ -31,23 +33,7 @@ class CurrencyController extends Controller
      */
     public function create(Request $request)
     {
-        // $request->validate([
-        //     'currency_name' => "required",
-        //     'exchange_code' => "required",
 
-        // ]);
-        // $currency = new Currency();
-        // $currency->currency_name = $request->currency_name;
-        // $currency->exchange_code = $request->exchange_code;
-
-        // $currency->save();
-
-
-        // //renvoie de reponse personnalisée
-        // return response()->json([
-        //     "status"=> 1,
-        //     "message" => "devise crée avec succes"
-        // ]);
     }
 
     /**
@@ -56,23 +42,24 @@ class CurrencyController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
+    //function create cyrrency
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'currency_name' => "required",
-        //     'exchange_code' => "required",
-        // ]);
+        $request->validate([
+            'currency_name' => "required",
+            'exchange_code' => "required|max:3",
+        ]);
         $tabCurrencies =$request->all();
         if($tabCurrencies["currency_name"] && $tabCurrencies["exchange_code"]){
             $currency = new Currency();
             $currency->currency_name = strtoupper($tabCurrencies["currency_name"]);
             $currency->exchange_code = strtoupper($tabCurrencies["exchange_code"]);
 
-            
+
             $isCurrency_nameExist = Currency::where("currency_name",$currency->currency_name)->exists();
             $isExchange_codeExist = Currency::where("exchange_code",$currency->exchange_code)->exists();
 
-            //dd($isCurrency_nameExist,$isExchange_codeExist );
+
             if( $isCurrency_nameExist ||  $isExchange_codeExist){
 
                 return response()->json([
@@ -89,15 +76,6 @@ class CurrencyController extends Controller
 
         }
 
-
-
-
-
-
-        //
-
-
-        //renvoie de reponse personnalisée
         return response()->json([
             "status"=> 1,
             "message" => "devise crée avec succes"
@@ -110,12 +88,13 @@ class CurrencyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //function get id currency
     public function show($id)
     {
-        //on recupère un étudiant si il existe
+
         $currency = Currency::where("id",$id)->exists();
         if($currency){
-            //$info recupère la valeur ou les données de l'etudiant   de l'id trouvé
+
             $info = Currency::find($id);
             return response()->json([
                 "status" => 1,
@@ -149,14 +128,16 @@ class CurrencyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    //fucntion update currency
     public function update(Request $request, $id)
     {
         $currency = Currency::where("id",$id)->exists();
         if($currency){
-            //$info recupère la valeur ou les données de l'etudiant   de l'id trouvé
+
             $info = Currency::find($id);
-            $info->currency_name = $request->currency_name;
-            $info->exchange_code = $request->exchange_code;
+            $info->currency_name = strtoupper($request->currency_name);
+            $info->exchange_code = strtoupper($request->exchange_code);
 
             $info->save();
             return response()->json([
@@ -178,6 +159,7 @@ class CurrencyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //function delete currency
     public function destroy($id)
     {
         $currency = Currency::where("id",$id)->exists();

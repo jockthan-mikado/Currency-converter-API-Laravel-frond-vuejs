@@ -11,13 +11,11 @@ const router = createRouter({
     {
       path: "/",
       name: "login",
-      //redirect: "/dashbord",
       component: () => import("../views/LoginView.vue"),
       beforeEnter(){
         if (localStorage.getItem("token")) {
             this.$route.push("/dashbord") ;
-            //return {path:"/dashbord"};
-            //return {path:"/dashbord-listepair"};
+            
         }
       }
     },
@@ -25,13 +23,9 @@ const router = createRouter({
     {
       path: "/dashbord",
       name: "dashbord",
-      //redirect: "/dashbord-listepair",
+      
       component: () => import("../views/DashbordView.vue"),
-      // beforeEnter(){
-      //   if (localStorage.getItem("token") == null) {
-      //       return {path:"/"};
-      //   }
-      // }
+      
    
     },
     {

@@ -25,7 +25,9 @@
             <td>{{ pair.id }}</td>
             <td>
               {{ pair.currency_from.exchange_code }} -
-              {{ pair.currency_to.exchange_code }}
+              {{ pair.currency_to.exchange_code }}/
+              {{ pair.currency_to.exchange_code }} -
+              {{  pair.currency_to.exchange_code }}
             </td>
             <td>{{ pair.rate }}</td>
             <td>{{ pair.exchange_number }}</td>

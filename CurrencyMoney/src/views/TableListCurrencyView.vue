@@ -95,6 +95,7 @@ export default {
                
                 let i = this.currencies.map((data) => data.id).indexOf(id);
                 this.currencies.splice(i, 1);
+                
               })
               .catch((error) => {
                 console.log(error);
