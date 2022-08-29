@@ -194,8 +194,8 @@ class PairController extends Controller
             ]);
         }
 
-        $result1 = $value * $info->rate;
-        $result2 = $value * (1/$info->rate);
+        $resultPaireInitial = $value * $info->rate;
+        $resultPaireFinal = $value * (1/$info->rate);
         $info->exchange_number++;
 
         $info->save();
@@ -203,8 +203,8 @@ class PairController extends Controller
         return response()->json([
                 "status" => 1,
                 "message" => "réussie",
-                "resultat1" => $result1,
-                "resultat2" => $result2,
+                "resultat1" => $resultPaireInitial,
+                "resultat2" => $resultPaireFinal,
                 "data" => $info
             ]);
     }
